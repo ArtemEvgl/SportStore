@@ -38,7 +38,7 @@ namespace SportStore.Models
                     {
                         Name = "Soccer Ball",
                         Description = "Fifa-approved size and weight",
-                        Category = "Watersports",
+                        Category = "Soccer",
                         Price = 19.50M
                     },
                     new Product
@@ -51,16 +51,37 @@ namespace SportStore.Models
                     new Product
                     {
                         Name = "Stadium",
-                        Description = "Flat-packed",
+                        Description = "Flat-packed 35,000-seat stadium",
                         Category = "Soccer",
                         Price = 79500
                     },
                     new Product
                     {
                         Name = "Thinking Cap",
-                        Description = "A boat for one person",
+                        Description = "Improve brain efficiency by 75%",
                         Category = "Chess",
                         Price = 16
+                    },
+                    new Product
+                    {
+                        Name = "Unsteady Chair",
+                        Description = "Secretly give your opponent a disadvantage",
+                        Category = "Chess",
+                        Price = 29.95m
+                    },
+                    new Product
+                    {
+                        Name = "Human Chess Board",
+                        Description = "A fun game for the family",
+                        Category = "Chess",
+                        Price = 75
+                    },
+                    new Product
+                    {
+                        Name = "Bling-Bling king",
+                        Description = "Gold-plated, diamond-studded King",
+                        Category = "Chess",
+                        Price = 1200
                     }
                     );
                 context.SaveChanges();
