@@ -34,24 +34,10 @@ namespace SomeTests
             cartTest.AddItem(p1, 2);
             cartTest.AddItem(p2, 1);
 
-            Mock<ISession> mockSession = new Mock<ISession>();
-            byte[] data = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cartTest));
-            mockSession.Setup(c => c.TryGetValue(It.IsAny<string>(), out data));
-
-            Mock<HttpContext> mockContext = new Mock<HttpContext>();
-            mockContext.SetupGet(c => c.Session).Returns(mockSession.Object);
 
             //act
 
-            CartModel cartModel = new CartModel(mockRepo.Object)
-            {
-                PageContext = new PageContext(new ActionContext
-                {
-                    HttpContext = mockContext.Object,
-                    RouteData = new RouteData(),
-                    ActionDescriptor = new ActionDescriptor()
-                })
-            };
+            CartModel cartModel = new CartModel(mockRepo.Object, cartTest);
 
             cartModel.OnGet("myUrl");
 
@@ -71,25 +57,8 @@ namespace SomeTests
 
             Cart cartTest = new Cart();
 
-            Mock<ISession> mockSession = new Mock<ISession>();
-            mockSession.Setup(s => s.Set(It.IsAny<string>(), It.IsAny<byte[]>()))
-                .Callback<string, byte[]>((key, val) =>
-                {
-                    cartTest = JsonSerializer.Deserialize<Cart>(Encoding.UTF8.GetString(val));
-                });
-
-            Mock<HttpContext> mockContext = new Mock<HttpContext>();
-            mockContext.SetupGet(c => c.Session).Returns(mockSession.Object);
             //act
-            CartModel cartModel = new CartModel(mockStore.Object)
-            {
-                PageContext = new PageContext(new ActionContext
-                {
-                    HttpContext = mockContext.Object,
-                    RouteData = new RouteData(),
-                    ActionDescriptor = new ActionDescriptor()
-                })
-            };
+            CartModel cartModel = new CartModel(mockStore.Object, cartTest);
 
             cartModel.OnPost(1, "myUrl");
 
